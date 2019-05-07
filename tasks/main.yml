@@ -1,2 +1,6 @@
 ---
-# tasks file for skeleton
+# tasks file for nmap
+
+- name: Install nmap
+  package:
+    name: nmap
