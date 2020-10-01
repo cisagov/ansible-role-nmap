@@ -1,3 +1,7 @@
-docker # Needed for molecule to work correctly
-molecule
+--requirement requirements.txt
+ansible-lint
+flake8
+molecule[docker]
 pre-commit
+testinfra
+yamllint
