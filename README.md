@@ -1,8 +1,7 @@
 # ansible-role-nmap #
 
 [![GitHub Build Status](https://github.com/cisagov/ansible-role-nmap/workflows/build/badge.svg)](https://github.com/cisagov/ansible-role-nmap/actions)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/cisagov/ansible-role-nmap.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/cisagov/ansible-role-nmap/alerts/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/cisagov/ansible-role-nmap.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/cisagov/ansible-role-nmap/context:python)
+[![CodeQL](https://github.com/cisagov/ansible-role-nmap/workflows/CodeQL/badge.svg)](https://github.com/cisagov/ansible-role-nmap/actions/workflows/codeql-analysis.yml)
 
 An Ansible role for installing [Nmap](https://nmap.org/).
 
@@ -33,8 +32,10 @@ Here's how to use it in a playbook:
 - hosts: all
   become: yes
   become_method: sudo
-  roles:
-    - nmap
+  tasks:
+    - name: Install Nmap
+      ansible.builtin.include_role:
+        name: nmap
 ```
 
 ## Contributing ##
