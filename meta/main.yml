@@ -38,4 +38,6 @@ galaxy_info:
         - jammy
   role_name: nmap
 
-dependencies: []
+dependencies:
+  - name: backports
+    src: https://github.com/cisagov/ansible-role-backports
