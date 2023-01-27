@@ -21,4 +21,4 @@ def test_packages(host, pkg):
         host.system_info.distribution == "debian"
         and host.system_info.codename == "bullseye"
     ):
-        assert host.package(pkg).version.startswith("7.92")
+        assert host.package(pkg).version.startswith("7.93")
