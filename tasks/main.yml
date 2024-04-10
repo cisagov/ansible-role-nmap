@@ -1,6 +1,4 @@
 ---
-# tasks file for nmap
-
 - name: Install nmap (Debian Bullseye)
   ansible.builtin.apt:
     default_release: "{{ ansible_distribution_release }}-backports"
