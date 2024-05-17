@@ -4,9 +4,7 @@
 # assigned static variables.
 #
 # See also cisagov/skeleton-ansible-role#153.
-dependencies:
-  - name: backports
-    src: https://github.com/cisagov/ansible-role-backports
+dependencies: []
 galaxy_info:
   author: Shane Frasier
   company: CISA Cyber Assessments

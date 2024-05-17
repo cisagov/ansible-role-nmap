@@ -1,11 +1,17 @@
 ---
 - name: Install nmap (Debian Bullseye)
-  ansible.builtin.apt:
-    default_release: "{{ ansible_distribution_release }}-backports"
-    name: nmap
   when:
     - ansible_distribution == "Debian"
     - ansible_distribution_release == "bullseye"
+  block:
+    - name: Add Debian Backports repository
+      ansible.builtin.include_role:
+        name: backports
+
+    - name: Install nmap
+      ansible.builtin.apt:
+        default_release: "{{ ansible_distribution_release }}-backports"
+        name: nmap
 
 - name: Install nmap (not Debian Bullseye)
   ansible.builtin.package:
