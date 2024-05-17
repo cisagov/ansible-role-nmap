@@ -1,10 +1,19 @@
 ---
-- name: Install nmap (Debian Bullseye)
+- name: Install nmap
+  ansible.builtin.package:
+    name: nmap
+  # yamllint/ansible-lint complains about this being too long, but
+  # there is no clean way to break it up.
+  #
+  # yamllint disable-line rule:line-length
+  when: not (ansible_distribution == "Debian" and ansible_distribution_release in ["bullseye", "bookworm"])
+
+- name: Install nmap from Debian Backports
   when:
     - ansible_distribution == "Debian"
-    - ansible_distribution_release == "bullseye"
+    - ansible_distribution_release in ["bullseye", "bookworm"]
   block:
-    - name: Add Debian Backports repository
+    - name: Add the Debian Backports repository
       ansible.builtin.include_role:
         name: backports
 
@@ -12,12 +21,3 @@
       ansible.builtin.apt:
         default_release: "{{ ansible_distribution_release }}-backports"
         name: nmap
-
-- name: Install nmap (not Debian Bullseye)
-  ansible.builtin.package:
-    name: nmap
-  # yamllint/ansible-lint complains about this being too long, but
-  # there is no clean way to break it up.
-  #
-  # yamllint disable-line rule:line-length
-  when: not (ansible_distribution == "Debian" and ansible_distribution_release == "bullseye")
