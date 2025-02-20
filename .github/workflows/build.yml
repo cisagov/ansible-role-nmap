@@ -256,25 +256,13 @@ jobs:
       # TODO: Remove the apt-get purge and systemctl reload commands
       # when possible.  See cisagov/skeleton-ansible-role#215 for more
       # details.
-      - name: Disable unix-chkpwd AppArmor profile
-        run: |
-          sudo apt-get purge firefox passt
-          sudo systemctl reload apparmor.service
-          sudo apt-get install apparmor-utils
-          sudo aa-disable /usr/sbin/unix_chkpwd
-        if: ${{ startsWith(matrix.platform, 'fedora') }}
+      - name: Disable AppArmor
+        uses: cisagov/action-disable-apparmor@first-commits
       - name: Run molecule tests
         run: >-
           molecule test
           --platform-name ${{ matrix.platform }}-${{ matrix.architecture }}
           --scenario-name ${{ matrix.scenario }}
-      # TODO: Remove the apt-get install command when possible.  See
-      # cisagov/skeleton-ansible-role#215 for more details.
-      - name: Re-enable unix-chkpwd AppArmor profile
-        run: |
-          sudo aa-enforce /usr/sbin/unix_chkpwd
-          sudo apt-get install firefox passt
-        if: ${{ startsWith(matrix.platform, 'fedora') }}
       - name: Setup tmate debug session
         uses: mxschmitt/action-tmate@v3
         if: env.RUN_TMATE
