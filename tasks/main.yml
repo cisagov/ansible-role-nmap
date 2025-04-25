@@ -10,4 +10,8 @@
 - name: Install nmap (not Debian Bullseye)
   ansible.builtin.package:
     name: nmap
+  # yamllint/ansible-lint complains about this being too long, but
+  # there is no clean way to break it up.
+  #
+  # yamllint disable-line rule:line-length
   when: not (ansible_distribution == "Debian" and ansible_distribution_release == "bullseye")
