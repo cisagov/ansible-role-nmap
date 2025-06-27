@@ -1,4 +1,4 @@
-"""Module containing the tests for the default scenario."""
+"""Module containing the tests for the not_from_backports scenario."""
 
 # Standard Python Libraries
 import os
