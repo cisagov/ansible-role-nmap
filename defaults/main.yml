@@ -1,0 +1,3 @@
+---
+# Install Nmap from Debian Backports, if available
+nmap_install_from_backports: true
