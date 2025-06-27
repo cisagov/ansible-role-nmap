@@ -7,14 +7,14 @@
         and ansible_distribution_release in ["bullseye", "bookworm"]
       }}
 
-- name: Install nmap
+- name: Install Nmap
   ansible.builtin.package:
     name: nmap
   # With the below boolean expression we use a minimal version of:
   # not nmap_available_from_backports or not nmap_install_from_backports
   when: not (nmap_available_from_backports and nmap_install_from_backports)
 
-- name: Install nmap from Debian Backports
+- name: Install Nmap from Debian Backports
   when:
     - nmap_available_from_backports
     - nmap_install_from_backports
