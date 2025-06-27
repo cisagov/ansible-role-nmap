@@ -15,10 +15,16 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 @pytest.mark.parametrize("pkg", ["nmap"])
 def test_packages(host, pkg):
     """Test that the appropriate packages were installed."""
+    version_prefixes = {
+        "bullseye": "7.91",
+        "bookworm": "7.93",
+    }
+
     assert host.package(pkg).is_installed
+
     # Verify that the version from Debian Backports is NOT installed
     if host.system_info.distribution == "debian":
-        if host.system_info.codename == "bullseye":
-            assert host.package(pkg).version.startswith("7.91")
-        if host.system_info.codename == "bookworm":
-            assert host.package(pkg).version.startswith("7.93")
+        if host.system_info.codename in version_prefixes.keys():
+            assert host.package(pkg).version.startswith(
+                version_prefixes[host.system_info.codename]
+            )
