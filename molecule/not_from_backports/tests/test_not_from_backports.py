@@ -1,4 +1,4 @@
-"""Module containing the tests for the default scenario."""
+"""Module containing the tests for the not_from_backports scenario."""
 
 # Standard Python Libraries
 import os
@@ -16,13 +16,13 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 def test_packages(host, pkg):
     """Test that the appropriate packages were installed."""
     version_prefixes = {
-        "bullseye": "7.93",
-        "bookworm": "7.94",
+        "bullseye": "7.91",
+        "bookworm": "7.93",
     }
 
     assert host.package(pkg).is_installed
 
-    # Verify that the appropriate version from Debian Backports is installed
+    # Verify that the version from Debian Backports is NOT installed
     if host.system_info.distribution == "debian":
         if host.system_info.codename in version_prefixes.keys():
             assert host.package(pkg).version.startswith(

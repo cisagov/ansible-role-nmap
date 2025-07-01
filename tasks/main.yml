@@ -1,23 +1,23 @@
 ---
-- name: Determine if installing from Debian Backports
+- name: Determine if Nmap is available from Debian Backports
   ansible.builtin.set_fact:
-    install_from_backports: >-
+    nmap_available_from_backports: >-
       {{
         ansible_distribution == "Debian"
         and ansible_distribution_release in ["bullseye", "bookworm"]
       }}
 
-- name: Install nmap
+- name: Install Nmap
   ansible.builtin.package:
     name: nmap
-  # yamllint/ansible-lint complains about this being too long, but
-  # there is no clean way to break it up.
-  #
-  # yamllint disable-line rule:line-length
-  when: not install_from_backports
+  # With the below boolean expression we use a minimal version of:
+  # not nmap_available_from_backports or not nmap_install_from_backports
+  when: not (nmap_available_from_backports and nmap_install_from_backports)
 
-- name: Install nmap from Debian Backports
-  when: install_from_backports
+- name: Install Nmap from Debian Backports
+  when:
+    - nmap_available_from_backports
+    - nmap_install_from_backports
   block:
     - name: Add the Debian Backports repository
       ansible.builtin.include_role:

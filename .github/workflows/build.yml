@@ -228,6 +228,7 @@ jobs:
           - ubuntu-24-systemd
         scenario:
           - default
+          - not_from_backports
     steps:
       - name: Apply standard cisagov job preamble
         uses: cisagov/action-job-preamble@v1
