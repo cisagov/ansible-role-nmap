@@ -13,7 +13,7 @@ None.
 ## Role Variables ##
 
 | Variable | Description | Default | Required |
-|----------|-------------|---------|----------|
+| -------- | ----------- | ------- | -------- |
 | nmap_install_from_backports | Install Nmap from Debian Backports, if available. | `true` | No |
 
 ## Dependencies ##
